@@ -4,6 +4,6 @@ open module MyTab {
     requires javafx.fxml;
     requires java.xml;
     requires java.sql;
+    requires sqlite.jdbc;
 
-    //requires java.sql;
 }

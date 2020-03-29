@@ -3,12 +3,12 @@ package JDBC;
 import java.sql.SQLException;
 
 public class test {
-    public static void main(String[] args){
+    public static void main(String[] args) throws ClassNotFoundException {
         Searcher searcher = new Searcher();
-        try {
+        /*try {
             searcher.getAllLeiding();
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }

@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Searcher {
-    private static final String JDBC_URL = "jdbc:sqlite:/home/jules/MyDevelopAdventure/Tap.db";
+    private static final String JDBC_URL = "jdbc:sqlite:/home/jules/MyTab/src/Tap.db";
 
     private Connection connection;
 
-    public Searcher() {
+    public Searcher() throws ClassNotFoundException {
         try {
             connection = DriverManager.getConnection(JDBC_URL);
         } catch (SQLException e) {
@@ -44,16 +44,25 @@ public class Searcher {
     }
 
 
-    public void getAllLeiding() throws SQLException {
+    public List<Leider> getAllLeiding() throws SQLException {
         ResultSet rs = search("SELECT * FROM leiding");
-        System.out.println(rs);
+        ArrayList<Leider> output = new ArrayList<>();
         while(rs.next()){
-            System.out.println(rs.getString(1));
+            Leider newLeider = new Leider(rs.getString(1),
+                                          rs.getString(2),
+                                          Integer.parseInt(rs.getString(3)));
+            output.add(newLeider);
         }
         reestablishConnection();
+        return output;
     }
 
-    public void getAllDrank(){
+    public List<Drank> getAllDrank(){
+        ResultSet rs = search("SELECT * FROM drank");
+        ArrayList<Drank> output = new ArrayList<>();
 
+
+
+        return output;
     }
 }
