@@ -1,5 +1,7 @@
 package JDBC;
 
+import javafx.scene.chart.PieChart;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,17 +10,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Searcher {
-    private static final String JDBC_URL = "jdbc:sqlite:/home/jules/MyTab/src/Tap.db";
+public class Searcher extends DatabaseCommunicator {
 
-    private Connection connection;
-
-    public Searcher() throws ClassNotFoundException {
-        try {
-            connection = DriverManager.getConnection(JDBC_URL);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public Searcher(){
+        super();
     }
 
     public ResultSet search(String sqlStatement){
@@ -33,36 +28,29 @@ public class Searcher {
         }
     }
 
-    public void reestablishConnection(){
-        try {
-            connection.close();
-            connection = DriverManager.getConnection(JDBC_URL);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
     public List<Leider> getAllLeiding() throws SQLException {
         ResultSet rs = search("SELECT * FROM leiding");
         ArrayList<Leider> output = new ArrayList<>();
         while(rs.next()){
             Leider newLeider = new Leider(rs.getString(1),
                                           rs.getString(2),
-                                          Integer.parseInt(rs.getString(3)));
+                                          0);
+                                          //Integer.parseInt(rs.getString(3).replace('.', ',')));
             output.add(newLeider);
         }
         reestablishConnection();
         return output;
     }
 
-    public List<Drank> getAllDrank(){
+    public List<Drank> getAllDrank() throws SQLException {
         ResultSet rs = search("SELECT * FROM drank");
         ArrayList<Drank> output = new ArrayList<>();
-
-
-
+        while(rs.next()){
+            Drank newDrinksj = new Drank(rs.getString(1),
+                                         Double.parseDouble(rs.getString(3)),
+                                         Integer.parseInt(rs.getString(2)));
+            output.add(newDrinksj);
+        }
         return output;
     }
 }

@@ -16,4 +16,16 @@ public class Leider {
     public void consume(Drank drank){
         schuld += drank.getPrijs();
     }
+
+    public int getSchuld() {
+        return schuld;
+    }
+
+    public String getFirst() {
+        return first;
+    }
+
+    public String getLast() {
+        return last;
+    }
 }

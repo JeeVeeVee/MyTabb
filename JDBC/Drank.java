@@ -1,15 +1,17 @@
 package JDBC;
 
 public class Drank {
+    private String naam;
+    private double prijs;
     private int voorraad;
-    private int prijs;
 
-    public Drank(int voorraad, int prijs) {
+    public Drank(String naam,double prijs, int voorraad) {
+        this.naam = naam;
         this.prijs = prijs;
         this.voorraad = voorraad;
     }
 
-    public int getPrijs(){
+    public double getPrijs(){
         return this.prijs;
     }
 
@@ -19,5 +21,14 @@ public class Drank {
 
     public void consume(){
         this.voorraad--;
+    }
+
+    @Override
+    public String toString() {
+        return "Drank{" +
+                "naam='" + naam + '\'' +
+                ", voorraad=" + voorraad +
+                ", prijs=" + prijs +
+                '}';
     }
 }

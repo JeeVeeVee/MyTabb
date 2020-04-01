@@ -27,7 +27,7 @@ def generate_insert_leiding_statement(leider, connection):
 
 def generate_insert_drank_statement(drank, connection):
     cursor = connection.cursor()
-    statement = "INSERT INTO drank VALUES ('{}', {}, {})".format(drank[0], drank[1], drank[2])
+    statement = "INSERT INTO drank VALUES ('{}', {}, {})".format(drank[0], drank[2], drank[1])
     cursor.execute(statement)
     connection.commit()
 
@@ -50,6 +50,9 @@ def fill_drank_table():
 
 
 curs = conn.cursor()
+initiate_leiding_table(conn)
+fill_leiding_table()
 
+initiate_drank_table()
 fill_drank_table()
 
