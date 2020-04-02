@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 public class Test extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        Scene scene = new Scene(new LeiderComponent(new Leider("jules", "vervaeke", 0)));
+        Scene scene = new Scene(new ZuipComponent(new Leider("Jules", "Vervaeke", 0)));
         stage.setScene(scene);
         stage.show();
     }
