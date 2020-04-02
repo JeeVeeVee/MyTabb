@@ -21,7 +21,6 @@ public class DatabaseCommunicator {
         try {
             connection.close();
             connection = DriverManager.getConnection(JDBC_URL);
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

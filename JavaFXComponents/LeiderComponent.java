@@ -15,9 +15,9 @@ public class LeiderComponent extends AnchorPane {
 
     public LeiderComponent(Leider leider){
         super();
-        leider = leider;
+        this.leider = leider;
         naam = new Label(leider.getFirst() + " " + leider.getLast());
-        schuld = new Label("schuld : " + Integer.toString(leider.getSchuld()));
+        schuld = new Label("schuld : " + Double.toString(leider.getSchuld()));
 
     }
 }

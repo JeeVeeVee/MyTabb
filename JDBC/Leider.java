@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 public class Leider {
     private String first;
     private String last;
-    private int schuld;
+    private double schuld;
 
-    public Leider(String first, String last, int schuld){
+    public Leider(String first, String last, double schuld){
         this.first = first;
         this.last = last;
         this.schuld = schuld;
@@ -17,7 +17,7 @@ public class Leider {
         schuld += drank.getPrijs();
     }
 
-    public int getSchuld() {
+    public double getSchuld() {
         return schuld;
     }
 
@@ -27,5 +27,14 @@ public class Leider {
 
     public String getLast() {
         return last;
+    }
+
+    @Override
+    public String toString() {
+        return "Leider{" +
+                "first='" + first + '\'' +
+                ", last='" + last + '\'' +
+                ", schuld=" + schuld +
+                '}';
     }
 }

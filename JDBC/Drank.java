@@ -19,6 +19,10 @@ public class Drank {
         return this.voorraad;
     }
 
+    public String getNaam() {
+        return naam;
+    }
+
     public void consume(){
         this.voorraad--;
     }

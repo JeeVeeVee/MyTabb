@@ -1,9 +1,5 @@
 package JDBC;
 
-import javafx.scene.chart.PieChart;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,7 +30,7 @@ public class Searcher extends DatabaseCommunicator {
         while(rs.next()){
             Leider newLeider = new Leider(rs.getString(1),
                                           rs.getString(2),
-                                          0);
+                                          rs.getDouble(3));
                                           //Integer.parseInt(rs.getString(3).replace('.', ',')));
             output.add(newLeider);
         }
