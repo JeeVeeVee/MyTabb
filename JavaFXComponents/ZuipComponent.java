@@ -103,16 +103,17 @@ public class ZuipComponent extends AnchorPane {
 
     public void drink(){
         int aantalConsumpties = Integer.parseInt(aantal.getText());
-        if(assortiment.getValue() != null) {
+        if((assortiment.getValue() != null) && (aantalConsumpties < assortiment.getValue().getVoorraad())) {
             for (int i = 0; i < aantalConsumpties; i++) {
                 zuiper.zuip(leider, assortiment.getValue());
                 try {
                     leider = updater.getuUpdatedLeider(leider);
-                    update(leider);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
+            update(leider);
+
 
         }else{
             System.out.println("je koos geen drankje");

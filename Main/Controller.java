@@ -30,15 +30,18 @@ public class Controller {
     }
 
     public void launch(){
+        System.out.println("ready for lift of");
         Searcher searcher = new Searcher(provider.getConnection());
         ArrayList<Leider> leiders = null;
         try {
             leiders = (ArrayList<Leider>) searcher.getAllLeiding();
+            System.out.println("we got here");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
         for(Leider leider : leiders) {
-            if(leider.getFirst() == voornaam.getText() && leider.getLast() == achternaam.getText()) {
+            if(leider.getFirst().equals(voornaam.getText()) && leider.getLast().equals(achternaam.getText())) {
                 Scene scene = new Scene(new ZuipComponent(leider, provider.getConnection()));
                 Stage stage = new Stage();
                 stage.setScene(scene);
