@@ -22,6 +22,7 @@ public class ZuipComponent extends AnchorPane {
     private ChoiceBox<Drank> assortiment;
     private Button schol;
     private TextField aantal;
+    private Label loggedInAs;
 
 
     public ZuipComponent(Leider leider){
@@ -76,7 +77,7 @@ public class ZuipComponent extends AnchorPane {
         allChilderen.add(schol);
         schol.setOnAction(e -> drink());
 
-        Label loggedInAs = new Label("ingelogd als " + leider.getFirst() + " " + leider.getLast());
+        loggedInAs = new Label("ingelogd als " + leider.getFirst() + " " + leider.getLast() + " , schuld = " + Double.toString(leider.getSchuld()));
         loggedInAs.setLayoutX(31.0);
         loggedInAs.setLayoutY(14.0);
         allChilderen.add(loggedInAs);
@@ -110,6 +111,11 @@ public class ZuipComponent extends AnchorPane {
         if(assortiment.getValue() != null) {
             for (int i = 0; i < aantalConsumpties; i++) {
                 zuiper.zuip(leider, assortiment.getValue());
+                try {
+                    leider = updater.getuUpdatedLeider(leider);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         }else{
             System.out.println("je koos geen drankje");
