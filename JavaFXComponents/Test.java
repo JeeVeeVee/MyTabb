@@ -1,5 +1,6 @@
 package JavaFXComponents;
 
+import JDBC.ConnectionProvider;
 import JDBC.Leider;
 import JDBC.Searcher;
 import javafx.application.Application;
@@ -11,10 +12,11 @@ import java.util.ArrayList;
 public class Test extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        Searcher searcher = new Searcher();
+        ConnectionProvider provider = new ConnectionProvider();
+        Searcher searcher = new Searcher(provider.getConnection());
         ArrayList<Leider> leiders = (ArrayList<Leider>) searcher.getAllLeiding();
         Leider leider = leiders.get(0);
-        Scene scene = new Scene(new ZuipComponent(leider));
+        Scene scene = new Scene(new ZuipComponent(leider, provider.getConnection()));
         stage.setScene(scene);
         stage.show();
     }

@@ -1,5 +1,6 @@
 package JDBC;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,8 +9,8 @@ import java.util.List;
 
 public class Searcher extends DatabaseCommunicator {
 
-    public Searcher(){
-        super();
+    public Searcher(Connection connection){
+        super(connection);
     }
 
     public ResultSet search(String sqlStatement){
@@ -34,7 +35,6 @@ public class Searcher extends DatabaseCommunicator {
                                           //Integer.parseInt(rs.getString(3).replace('.', ',')));
             output.add(newLeider);
         }
-        reestablishConnection();
         return output;
     }
 

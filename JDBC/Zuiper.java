@@ -1,11 +1,12 @@
 package JDBC;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class Zuiper extends DatabaseCommunicator{
-    public Zuiper(){
-        super();
+    public Zuiper(Connection connection){
+        super(connection);
     }
 
     public void zuip(Leider leider, Drank drank){
@@ -28,7 +29,6 @@ public class Zuiper extends DatabaseCommunicator{
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        reestablishConnection();
     }
 
     public void updateSchuld(Leider leider, Drank drank){
@@ -42,6 +42,5 @@ public class Zuiper extends DatabaseCommunicator{
         } catch (SQLException e){
             System.out.println("some went wrong");
         }
-        reestablishConnection();
     }
 }

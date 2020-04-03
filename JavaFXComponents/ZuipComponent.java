@@ -8,6 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -25,16 +26,16 @@ public class ZuipComponent extends AnchorPane {
     private Label loggedInAs;
 
 
-    public ZuipComponent(Leider leider){
+    public ZuipComponent(Leider leider, Connection connection){
         super();
         super.setPrefHeight(235.0);
         super.setPrefWidth(355.0);
 
         this.leider = leider;
 
-        searcher = new Searcher();
-        updater = new Updater();
-        zuiper = new Zuiper();
+        searcher = new Searcher(connection);
+        updater = new Updater(connection);
+        zuiper = new Zuiper(connection);
 
         ArrayList<Node> allChilderen = new ArrayList<>();
         Font textFont = new Font(20);
