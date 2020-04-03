@@ -10,7 +10,7 @@ public class Zuiper extends DatabaseCommunicator{
     }
 
     public void zuip(Leider leider, Drank drank){
-        updateVoorraad(drank);
+        //updateVoorraad(drank);
         updateSchuld(leider, drank);
     }
 
