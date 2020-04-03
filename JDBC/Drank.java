@@ -29,10 +29,6 @@ public class Drank {
 
     @Override
     public String toString() {
-        return "Drank{" +
-                "naam='" + naam + '\'' +
-                ", voorraad=" + voorraad +
-                ", prijs=" + prijs +
-                '}';
+        return naam;
     }
 }
