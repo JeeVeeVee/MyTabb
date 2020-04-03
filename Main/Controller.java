@@ -1,51 +1,49 @@
 package Main;
 
+import JDBC.ConnectionProvider;
+import JDBC.Leider;
+import JDBC.Searcher;
+import JavaFXComponents.ZuipComponent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
-import java.io.IOException;
-import java.util.Properties;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
-import static jdk.xml.internal.SecuritySupport.getResourceAsStream;
 
 public class Controller {
 
     public TextField voornaam;
     public TextField achternaam;
+    public Button launch;
 
-    private Properties properties = new Properties();
-    private String[] leiding;
+    private ConnectionProvider provider;
 
-    public Controller(){
-        try {
-            properties.load(Controller.class.getResourceAsStream("/properties/files/allLeiding.properties"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        leiding = properties.getProperty("leiding").split(", ");
+    public Controller(ConnectionProvider provider){
+        this.provider = provider;
+    }
 
+    public void initialize(){
+        launch.setOnAction(e -> launch());
     }
 
     public void launch(){
-        String naam = voornaam.getText() + " " + achternaam.getText();
-        if(checkIfIn(naam, leiding)){
-
-        } else{
-            registreer(naam);
+        Searcher searcher = new Searcher(provider.getConnection());
+        ArrayList<Leider> leiders = null;
+        try {
+            leiders = (ArrayList<Leider>) searcher.getAllLeiding();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    }
-
-    public boolean checkIfIn(String x, String[] list){
-        for(String s : list){
-            if(s.equals(x)){
-                return true;
+        for(Leider leider : leiders) {
+            if(leider.getFirst() == voornaam.getText() && leider.getLast() == achternaam.getText()) {
+                Scene scene = new Scene(new ZuipComponent(leider, provider.getConnection()));
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.show();
             }
         }
-        return false;
     }
-
-    public void registreer(String naam){
-
-
-    }
-
 }

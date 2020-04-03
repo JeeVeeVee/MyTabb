@@ -123,10 +123,28 @@ public class ZuipComponent extends AnchorPane {
         this.leider = leider;
 
         super.getChildren().remove(loggedInAs);
-
         loggedInAs = new Label("ingelogd als " + leider.getFirst() + " " + leider.getLast() + " , schuld = " + Double.toString(leider.getSchuld()));
         loggedInAs.setLayoutX(31.0);
         loggedInAs.setLayoutY(14.0);
         super.getChildren().add(loggedInAs);
+
+        super.getChildren().remove(assortiment);
+        assortiment =  new ChoiceBox<>();
+        ArrayList<Drank> dranklijst = null;
+        try {
+            dranklijst = (ArrayList<Drank>) searcher.getAllDrank();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        for(Drank drank : dranklijst){
+            if(drank.getVoorraad() > 0) {
+                assortiment.getItems().add(drank);
+            }
+        }
+        assortiment.setLayoutX(169.0);
+        assortiment.setLayoutY(74.0);
+        assortiment.setPrefWidth(150.0);
+        super.getChildren().add(assortiment);
     }
 }

@@ -33,6 +33,17 @@ public class Updater extends DatabaseCommunicator{
     }
 
     public Drank getUpdatedDrank(Drank drank){
-        return null;
+        try{
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM drank WHERE naam = ");
+            ps.setString(1, drank.getNaam());
+            ResultSet rs = ps.executeQuery();
+            Drank output = new Drank(rs.getString(1),
+                    rs.getDouble(2),
+                    rs.getInt(3));
+            return output;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return drank;
+        }
     }
 }
