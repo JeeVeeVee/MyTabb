@@ -4,14 +4,12 @@ import JDBC.ConnectionProvider;
 import JDBC.Drank;
 import JDBC.Searcher;
 import JDBC.Updater;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
 
 import java.sql.SQLException;
@@ -21,6 +19,7 @@ public class DVController {
     public TableView<Drank> tabel;
     public TableColumn<Drank, String> naamColumn;
     public TableColumn<Drank, Integer> voorraadColumn;
+    public TableColumn<Drank, Drank> aanvulColumn;
 
     private ConnectionProvider provider;
     private Searcher searcher;
@@ -60,5 +59,18 @@ public class DVController {
         });
 
         voorraadColumn.setCellValueFactory(row -> new SimpleObjectProperty<>(row.getValue().getVoorraad()));
+/*
+        aanvulColumn.setCellFactory(column -> {
+            AanvulCell cell = new AanvulCell<>();
+            cell.getButton();
+
+            return cell;
+        });
+
+        aanvulColumn.setCellValueFactory(row ->
+                new SimpleObjectProperty<>(row.getValue())
+        );
+        
+ */
     }
 }
