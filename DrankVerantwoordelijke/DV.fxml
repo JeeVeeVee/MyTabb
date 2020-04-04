@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView fx:id="tabel" layoutX="23.0" layoutY="106.0" prefHeight="200.0" prefWidth="549.0">
+        <columns>
+          <TableColumn fx:id="naamColumn" prefWidth="179.0" text="naam" />
+          <TableColumn fx:id="voorraadColumn"  prefWidth="220.0" text="voorraad" />
+            <TableColumn fx:id="aanvulColumn" prefWidth="149.0" text="aanvullen" />
+        </columns>
+      </TableView>
+      <Label layoutX="154.0" layoutY="35.0" text="Voorraad">
+         <font>
+            <Font size="59.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
