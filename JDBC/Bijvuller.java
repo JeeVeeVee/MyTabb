@@ -9,7 +9,7 @@ public class Bijvuller extends DatabaseCommunicator {
         super(connection);
     }
 
-    public void vulBij(Drank drank, int aantalBakken){
+    public void vulBij(int aantalBakken, Drank drank){
         try(PreparedStatement ps = connection.prepareStatement(
                 "UPDATE drank SET voorraad = ? WHERE naam = ?"
         )){

@@ -15,7 +15,7 @@ public class DVMain extends Application {
         loader.setController(new DVController(new ConnectionProvider()));
         Parent root = loader.load();
         stage.setTitle("MyTabb");
-        stage.setScene(new Scene(root, 615, 588));
+        stage.setScene(new Scene(root, 615, 400));
         stage.show();
     }
 }

@@ -1,9 +1,6 @@
 package DrankVerantwoordelijke;
 
-import JDBC.ConnectionProvider;
-import JDBC.Drank;
-import JDBC.Searcher;
-import JDBC.Updater;
+import JDBC.*;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -24,28 +21,18 @@ public class DVController {
     private ConnectionProvider provider;
     private Searcher searcher;
     private Updater updater;
+    private Bijvuller bijvuller;
 
     public DVController(ConnectionProvider provider){
         this.provider = provider;
         searcher = new Searcher(provider.getConnection());
         updater = new Updater(provider.getConnection());
-
+        bijvuller = new Bijvuller(provider.getConnection());
     }
 
 
     public void initialize(){
-        ObservableList<Drank> model = FXCollections.observableArrayList();
-        List<Drank> dranklijst = null;
-        try {
-            dranklijst = searcher.getAllDrank();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        for(Drank drank : dranklijst){
-            model.add(drank);
-        }
-        tabel.setItems(model);
-
+        fillTabel();
 
         naamColumn.setCellFactory(column -> {
             TableCell<Drank, String> cell = new TextFieldTableCell<>();
@@ -59,10 +46,18 @@ public class DVController {
         });
 
         voorraadColumn.setCellValueFactory(row -> new SimpleObjectProperty<>(row.getValue().getVoorraad()));
-/*
+
         aanvulColumn.setCellFactory(column -> {
             AanvulCell cell = new AanvulCell<>();
-            cell.getButton();
+            Button button = cell.getButton();
+            button.setOnAction(e -> {
+                Drank drank = (Drank) cell.getTableRow().getItem();
+                int aantal = Integer.parseInt(cell.getAantal().getText());
+                vulAan(aantal, drank);
+                tabel.getItems().clear();
+                fillTabel();
+                cell.getAantal().clear();
+            });
 
             return cell;
         });
@@ -70,7 +65,23 @@ public class DVController {
         aanvulColumn.setCellValueFactory(row ->
                 new SimpleObjectProperty<>(row.getValue())
         );
-        
- */
+    }
+
+    public void vulAan(int aantal, Drank drank){
+        bijvuller.vulBij(aantal, drank);
+    }
+
+    public void fillTabel(){
+        ObservableList<Drank> model = FXCollections.observableArrayList();
+        List<Drank> dranklijst = null;
+        try {
+            dranklijst = searcher.getAllDrank();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        for(Drank drank : dranklijst){
+            model.add(drank);
+        }
+        tabel.setItems(model);
     }
 }
