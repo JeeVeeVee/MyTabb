@@ -19,15 +19,11 @@ public class DVController {
     public TableColumn<Drank, Drank> aanvulColumn;
 
     private ConnectionProvider provider;
-    private Searcher searcher;
-    private Updater updater;
-    private Bijvuller bijvuller;
+    private DatabaseCommunicator dc;
 
     public DVController(ConnectionProvider provider){
         this.provider = provider;
-        searcher = new Searcher(provider.getConnection());
-        updater = new Updater(provider.getConnection());
-        bijvuller = new Bijvuller(provider.getConnection());
+        dc = new DatabaseCommunicator(provider.getConnection());
     }
 
 
@@ -68,14 +64,14 @@ public class DVController {
     }
 
     public void vulAan(int aantal, Drank drank){
-        bijvuller.vulBij(aantal, drank);
+        dc.vulBij(aantal, drank);
     }
 
     public void fillTabel(){
         ObservableList<Drank> model = FXCollections.observableArrayList();
         List<Drank> dranklijst = null;
         try {
-            dranklijst = searcher.getAllDrank();
+            dranklijst = dc.getAllDrank();
         } catch (SQLException e) {
             e.printStackTrace();
         }

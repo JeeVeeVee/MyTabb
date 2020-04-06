@@ -1,8 +1,8 @@
 package Main;
 
 import JDBC.ConnectionProvider;
+import JDBC.DatabaseCommunicator;
 import JDBC.Leider;
-import JDBC.Searcher;
 import JavaFXComponents.ZuipComponent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -31,10 +31,10 @@ public class Controller {
 
     public void launch(){
         System.out.println("ready for lift of");
-        Searcher searcher = new Searcher(provider.getConnection());
+        DatabaseCommunicator dc = new DatabaseCommunicator(provider.getConnection());
         ArrayList<Leider> leiders = null;
         try {
-            leiders = (ArrayList<Leider>) searcher.getAllLeiding();
+            leiders = (ArrayList<Leider>) dc.getAllLeiding();
             System.out.println("we got here");
 
         } catch (SQLException e) {

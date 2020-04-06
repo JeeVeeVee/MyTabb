@@ -14,9 +14,7 @@ import java.util.ArrayList;
 
 public class ZuipComponent extends AnchorPane {
 
-    private Searcher searcher;
-    private Updater updater;
-    private Zuiper zuiper;
+    private DatabaseCommunicator dc;
 
     private Leider leider;
 
@@ -34,14 +32,13 @@ public class ZuipComponent extends AnchorPane {
 
         Font textFont = new Font(20);
 
-        searcher = new Searcher(connection);
-        updater = new Updater(connection);
-        zuiper = new Zuiper(connection);
+
+        dc = new DatabaseCommunicator(connection);
 
         assortiment =  new ChoiceBox<>();
         ArrayList<Drank> dranklijst = null;
         try {
-            dranklijst = (ArrayList<Drank>) searcher.getAllDrank();
+            dranklijst = (ArrayList<Drank>) dc.getAllDrank();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -105,9 +102,9 @@ public class ZuipComponent extends AnchorPane {
         int aantalConsumpties = Integer.parseInt(aantal.getText());
         if((assortiment.getValue() != null) && (aantalConsumpties < assortiment.getValue().getVoorraad())) {
             for (int i = 0; i < aantalConsumpties; i++) {
-                zuiper.zuip(leider, assortiment.getValue());
+                dc.zuip(leider, assortiment.getValue());
                 try {
-                    leider = updater.getuUpdatedLeider(leider);
+                    leider = dc.getuUpdatedLeider(leider);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -133,7 +130,7 @@ public class ZuipComponent extends AnchorPane {
         assortiment =  new ChoiceBox<>();
         ArrayList<Drank> dranklijst = null;
         try {
-            dranklijst = (ArrayList<Drank>) searcher.getAllDrank();
+            dranklijst = (ArrayList<Drank>) dc.getAllDrank();
         } catch (SQLException e) {
             e.printStackTrace();
         }

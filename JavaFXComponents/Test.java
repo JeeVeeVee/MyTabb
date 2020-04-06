@@ -2,7 +2,6 @@ package JavaFXComponents;
 
 import JDBC.ConnectionProvider;
 import JDBC.Leider;
-import JDBC.Searcher;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
