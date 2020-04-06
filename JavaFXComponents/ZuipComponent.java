@@ -1,13 +1,9 @@
 package JavaFXComponents;
 
 import JDBC.*;
-import javafx.collections.FXCollections;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,17 +19,14 @@ public class ZuipComponent extends AnchorPane {
     private TextField aantal;
     private Label loggedInAs;
 
-
-
     public ZuipComponent(Leider leider, Connection connection){
         super();
         super.setPrefHeight(235.0);
         super.setPrefWidth(355.0);
 
-        Font textFont = new Font(20);
-
-
         dc = new DatabaseCommunicator(connection);
+
+        Font textFont = new Font(20);
 
         assortiment =  new ChoiceBox<>();
         ArrayList<Drank> dranklijst = null;
@@ -78,7 +71,6 @@ public class ZuipComponent extends AnchorPane {
 
         super.getChildren().add(aantal);
 
-
         Label zinIn = new Label("kheb zin in");
         zinIn.setLayoutX(31.0);
         zinIn.setLayoutY(75.0);
@@ -106,14 +98,13 @@ public class ZuipComponent extends AnchorPane {
                 try {
                     leider = dc.getuUpdatedLeider(leider);
                 } catch (SQLException e) {
+                    System.out.println("something went wrong, your order was not registered");
                     e.printStackTrace();
                 }
             }
             update(leider);
-
-
         }else{
-            System.out.println("je koos geen drankje");
+            System.out.println("check if you picked a drink, it is possible that the drink you ordered is no longer available");
         }
     }
 

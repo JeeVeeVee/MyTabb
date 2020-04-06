@@ -4,12 +4,8 @@ import JDBC.Drank;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 public class AanvulCell<S, P> extends TableCell<S, Drank> {
     private Button button;

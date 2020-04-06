@@ -23,10 +23,6 @@ public class Drank {
         return naam;
     }
 
-    public void consume(){
-        this.voorraad--;
-    }
-
     @Override
     public String toString() {
         return naam;

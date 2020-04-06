@@ -1,7 +1,5 @@
 package JDBC;
 
-import java.sql.DriverManager;
-
 public class Leider {
     private String first;
     private String last;

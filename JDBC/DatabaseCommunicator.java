@@ -43,7 +43,7 @@ public class DatabaseCommunicator {
             ps.setString(3, leider.getLast());
             ps.executeUpdate();
         } catch (SQLException e){
-            System.out.println("some went wrong");
+            System.out.println("Couldn't update schuld");
         }
     }
 
@@ -59,6 +59,7 @@ public class DatabaseCommunicator {
             return output;
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Could not return updated leider");
             return leider;
         }
     }
@@ -74,6 +75,7 @@ public class DatabaseCommunicator {
             return output;
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Could not return updated drank");
             return drank;
         }
     }
@@ -86,6 +88,7 @@ public class DatabaseCommunicator {
             return rs;
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.printf("could not execute following query: " + sqlStatement);
             return null;
         }
     }
@@ -97,7 +100,6 @@ public class DatabaseCommunicator {
             Leider newLeider = new Leider(rs.getString(1),
                     rs.getString(2),
                     rs.getDouble(3));
-            //Integer.parseInt(rs.getString(3).replace('.', ',')));
             output.add(newLeider);
         }
         return output;
@@ -123,8 +125,8 @@ public class DatabaseCommunicator {
             ps.setString(2, drank.getNaam());
             ps.executeUpdate();
         } catch (SQLException e) {
+            System.out.println("Something went wrong, " + drank.getNaam() + "was not refilled");
             e.printStackTrace();
         }
     }
-
 }

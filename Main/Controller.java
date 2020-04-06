@@ -30,13 +30,10 @@ public class Controller {
     }
 
     public void launch(){
-        System.out.println("ready for lift of");
         DatabaseCommunicator dc = new DatabaseCommunicator(provider.getConnection());
         ArrayList<Leider> leiders = null;
         try {
             leiders = (ArrayList<Leider>) dc.getAllLeiding();
-            System.out.println("we got here");
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

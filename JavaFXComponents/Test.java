@@ -1,6 +1,7 @@
 package JavaFXComponents;
 
 import JDBC.ConnectionProvider;
+import JDBC.DatabaseCommunicator;
 import JDBC.Leider;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -12,8 +13,8 @@ public class Test extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         ConnectionProvider provider = new ConnectionProvider();
-        Searcher searcher = new Searcher(provider.getConnection());
-        ArrayList<Leider> leiders = (ArrayList<Leider>) searcher.getAllLeiding();
+        DatabaseCommunicator dc = new DatabaseCommunicator(provider.getConnection());
+        ArrayList<Leider> leiders = (ArrayList<Leider>) dc.getAllLeiding();
         Leider leider = leiders.get(0);
         Scene scene = new Scene(new ZuipComponent(leider, provider.getConnection()));
         stage.setScene(scene);
