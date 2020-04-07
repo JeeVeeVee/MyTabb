@@ -1,9 +1,12 @@
 package JavaFXComponents;
 
 import JDBC.*;
+import errorHandling.MyError;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -33,6 +36,8 @@ public class ZuipComponent extends AnchorPane {
         try {
             dranklijst = (ArrayList<Drank>) dc.getAllDrank();
         } catch (SQLException e) {
+            MyError myError = new MyError("Could not retrieve drinks from the database");
+            myError.launch();
             e.printStackTrace();
         }
 
@@ -98,13 +103,20 @@ public class ZuipComponent extends AnchorPane {
                 try {
                     leider = dc.getuUpdatedLeider(leider);
                 } catch (SQLException e) {
-                    System.out.println("something went wrong, your order was not registered");
+                    MyError error = new MyError("something went wrong, your order was not registered");
+                    error.launch();
                     e.printStackTrace();
                 }
             }
             update(leider);
         }else{
-            System.out.println("check if you picked a drink, it is possible that the drink you ordered is no longer available");
+            if(assortiment.getValue() != null){
+                MyError error = new MyError("you did not pick a drink");
+                error.launch();
+            } else {
+                MyError error = new MyError("this drink is no longer available");
+                error.launch();
+            }
         }
     }
 
@@ -123,6 +135,7 @@ public class ZuipComponent extends AnchorPane {
         try {
             dranklijst = (ArrayList<Drank>) dc.getAllDrank();
         } catch (SQLException e) {
+            MyError error = new MyError("could not retrieve drinks from database");
             e.printStackTrace();
         }
 

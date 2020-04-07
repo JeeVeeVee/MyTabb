@@ -4,6 +4,7 @@ import JDBC.ConnectionProvider;
 import JDBC.DatabaseCommunicator;
 import JDBC.Leider;
 import JavaFXComponents.ZuipComponent;
+import errorHandling.MyError;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -35,6 +36,7 @@ public class Controller {
         try {
             leiders = (ArrayList<Leider>) dc.getAllLeiding();
         } catch (SQLException e) {
+            MyError error = new MyError("Could not load leiding from database, try again later");
             e.printStackTrace();
         }
         for(Leider leider : leiders) {

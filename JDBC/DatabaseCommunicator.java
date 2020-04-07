@@ -1,5 +1,7 @@
 package JDBC;
 
+import errorHandling.MyError;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

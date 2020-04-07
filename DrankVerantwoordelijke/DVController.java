@@ -1,12 +1,14 @@
 package DrankVerantwoordelijke;
 
 import JDBC.*;
+import errorHandling.MyError;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.TextFieldTableCell;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class DVController {
 
     public DVController(ConnectionProvider provider){
         this.provider = provider;
-        dc = new DatabaseCommunicator(provider.getConnection());
+        dc = new DatabaseCommunicator(this.provider.getConnection());
     }
 
     public void initialize(){
@@ -69,7 +71,8 @@ public class DVController {
         try {
             dranklijst = dc.getAllDrank();
         } catch (SQLException e) {
-            System.out.println("Something went wrong, could not retrieve drank from database");
+            MyError error = new MyError("The drinks could not be retrieved from the database");
+            error.launch();
             e.printStackTrace();
         }
         for(Drank drank : dranklijst){
