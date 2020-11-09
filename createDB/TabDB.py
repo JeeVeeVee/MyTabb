@@ -33,7 +33,7 @@ def generate_insert_drank_statement(drank, connection):
 
 
 def fill_leiding_table():
-    file = open("/createDB/leiding.csv", "r")
+    file = open("createDB/leiding.csv", "r")
 
     for line in file:
         leider = line[:-1].split()
@@ -41,7 +41,7 @@ def fill_leiding_table():
         generate_insert_leiding_statement(leider, conn)
 
 def fill_drank_table():
-    file = open("/createDB/drank.csv", "r")
+    file = open("createDB/drank.csv", "r")
     for line in file:
         drank = line[:-1].split()
         print(drank)

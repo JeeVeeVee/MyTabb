@@ -12,11 +12,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
-        loader.setController(new Controller(new ConnectionProvider()));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("new__sample.fxml"));
+        loader.setController(new NewController(new ConnectionProvider()));
         Parent root = loader.load();
         primaryStage.setTitle("MyTabb");
-        primaryStage.setScene(new Scene(root, 615, 588));
+        primaryStage.setScene(new Scene(root, 900, 500));
         primaryStage.show();
     }
 

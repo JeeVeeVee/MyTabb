@@ -3,7 +3,7 @@ package Main;
 import JDBC.ConnectionProvider;
 import JDBC.DatabaseCommunicator;
 import JDBC.Leider;
-import JavaFXComponents.ZuipComponent;
+import ZuipGedeelte.ZuipComponent;
 import errorHandling.MyError;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;

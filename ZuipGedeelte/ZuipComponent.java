@@ -1,11 +1,10 @@
-package JavaFXComponents;
+package ZuipGedeelte;
 
 import JDBC.*;
 import errorHandling.MyError;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 
 import java.sql.Connection;
 import java.sql.SQLException;
