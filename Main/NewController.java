@@ -28,12 +28,6 @@ public class NewController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        List<Leider> pseudoAllLeiding = new ArrayList<>();
-        pseudoAllLeiding.add(new Leider("Emile", "Vervaeke", 0));
-        pseudoAllLeiding.add(new Leider("Emma", "Steyaert", 0));
-        pseudoAllLeiding.add(new Leider("Marie", "Wylin", 0));
-        pseudoAllLeiding.add(new Leider("Hannah", "Dhaene", 0));
-        pseudoAllLeiding.add(new Leider("Jasper", "Vlerick", 0));
         for (int i = 0; i < allLeiding.size(); i += 8){
            for (int j = 0; j < 8 && i + j < allLeiding.size(); j++){
                PersonPane newPersonPane = new PersonPane(allLeiding.get(i + j));
