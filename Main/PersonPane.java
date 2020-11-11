@@ -28,4 +28,8 @@ public class PersonPane extends Pane {
             System.out.println("@../properties/images/" + leider.getFirst() + leider.getLast() + ".jpg");
         }
     }
+
+    public Leider getLeider(){
+        return this.leider;
+    }
 }

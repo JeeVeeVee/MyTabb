@@ -3,8 +3,13 @@ package Main;
 import JDBC.ConnectionProvider;
 import JDBC.DatabaseCommunicator;
 import JDBC.Leider;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,8 +40,22 @@ public class NewController {
                newPersonPane.setLayoutX(50 + 100 * j);
                newPersonPane.setPrefHeight(80);
                newPersonPane.setPrefWidth(80);
+               newPersonPane.setOnMouseClicked(e -> loadSecondFxml());
                anker.getChildren().add(newPersonPane);
            }
         }
+    }
+    public void loadSecondFxml(){
+        //Load new FXML and assign it to scene
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Login/login.fxml"));
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(root, 900, 600);
+        Stage stage = (Stage) anker.getScene().getWindow();
+        stage.setScene(scene);
     }
 }
