@@ -1,9 +1,14 @@
 package Login;
 
+import JDBC.ConnectionProvider;
 import JDBC.DatabaseCommunicator;
 import JDBC.Leider;
+import Main.NewController;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
@@ -12,7 +17,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 
@@ -61,11 +68,19 @@ public class LoginControlla {
                 } else {
                     if (index ==  9){
                         button.setText("C");
+                        button.setOnAction(e -> {
+                            toBeRefreshedUponRetry.forEach(node -> anker.getChildren().remove(node));
+                            generateLabels();
+                            counter = 0;
+                            checkSum = 0;
+                        });
                     } else if (index == 10){
                         button.setText("0");
                         button.setOnAction(e -> buttonPress(index));
                     }  else if (index == 11){
                         button.setText("X");
+                        button.setOnAction(e -> back());
+
                     }
                 }
                 toBeInvisibleUponWrongCode.add(button);
@@ -102,6 +117,7 @@ public class LoginControlla {
             toBeInvisibleUponWrongCode.add(label);
             toBeRefreshedUponRetry.add(label);
         }
+        annuleerButton.setOnAction(e -> back());
     }
 
     public void buttonPress(int i){
@@ -114,6 +130,7 @@ public class LoginControlla {
                 toBeInvisibleUponWrongCode.forEach(node -> node.setVisible(false));
                 //generateLabels();
                 counter = 0;
+                checkSum = 0;
             }
         }
         labels[counter].setText("#");
@@ -123,5 +140,19 @@ public class LoginControlla {
 
     public void login(Leider leider){
 
+    }
+
+    public void back(){
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Main/new__sample.fxml"));
+        fxmlLoader.setController(new NewController(new ConnectionProvider()));
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(root, 900, 600);
+        Stage stage = (Stage) anker.getScene().getWindow();
+        stage.setScene(scene);
     }
 }
