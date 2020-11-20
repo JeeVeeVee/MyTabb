@@ -1,4 +1,4 @@
-package Main;
+package Login;
 
 import JDBC.ConnectionProvider;
 import javafx.application.Application;
@@ -7,15 +7,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+public class TestMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
-        loader.setController(new Controller(new ConnectionProvider()));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+        //loader.setController(new NewController(new ConnectionProvider()));
         Parent root = loader.load();
         primaryStage.setTitle("MyTabb");
-        primaryStage.setScene(new Scene(root, 900, 500));
+        primaryStage.setScene(new Scene(root, 900, 600));
         primaryStage.show();
     }
 

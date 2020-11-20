@@ -8,7 +8,8 @@ def initiate_leiding_table(conn):
     cursor.execute("""CREATE TABLE leiding (
             first text,
             last text,
-            schuld float
+            schuld float,
+            hash integer
             )""")
 
 def initiate_drank_table():
@@ -21,7 +22,7 @@ def initiate_drank_table():
 
 def generate_insert_leiding_statement(leider, connection):
     cursor = connection.cursor()
-    statement = "INSERT INTO leiding VALUES ('{}', '{}', {})".format(leider[0], leider[1], leider[2])
+    statement = "INSERT INTO leiding VALUES ('{}', '{}', {}, {})".format(leider[0], leider[1], leider[2], leider[3])
     cursor.execute(statement)
     connection.commit()
 
@@ -33,7 +34,7 @@ def generate_insert_drank_statement(drank, connection):
 
 
 def fill_leiding_table():
-    file = open("/createDB/leiding.csv", "r")
+    file = open("createDB/leiding.csv", "r")
 
     for line in file:
         leider = line[:-1].split()
@@ -41,7 +42,7 @@ def fill_leiding_table():
         generate_insert_leiding_statement(leider, conn)
 
 def fill_drank_table():
-    file = open("/createDB/drank.csv", "r")
+    file = open("createDB/drank.csv", "r")
     for line in file:
         drank = line[:-1].split()
         print(drank)
