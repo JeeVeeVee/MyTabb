@@ -100,7 +100,7 @@ public class ZuipComponent extends AnchorPane {
             for (int i = 0; i < aantalConsumpties; i++) {
                 dc.zuip(leider, assortiment.getValue());
                 try {
-                    leider = dc.getuUpdatedLeider(leider);
+                    leider = dc.getUpdatedLeider(leider);
                 } catch (SQLException e) {
                     MyError error = new MyError("something went wrong, your order was not registered");
                     error.launch();

@@ -49,7 +49,7 @@ public class DatabaseCommunicator {
         }
     }
 
-    public Leider getuUpdatedLeider(Leider leider) throws SQLException {
+    public Leider getUpdatedLeider(Leider leider) throws SQLException {
         try{
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM leiding WHERE first = ? AND last = ?");
             ps.setString(1, leider.getFirst());
@@ -101,7 +101,8 @@ public class DatabaseCommunicator {
         while(rs.next()){
             Leider newLeider = new Leider(rs.getString(1),
                     rs.getString(2),
-                    rs.getDouble(3));
+                    rs.getDouble(3),
+                    rs.getInt(4));
             output.add(newLeider);
         }
         return output;

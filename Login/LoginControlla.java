@@ -3,39 +3,45 @@ package Login;
 import JDBC.DatabaseCommunicator;
 import JDBC.Leider;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 public class LoginControlla {
 
     public AnchorPane anker;
+    public ImageView leftImage;
+    public ImageView rightImage;
+    public AnchorPane fouteCodePane;
+    public Button retryButton;
+    public Button annuleerButton;
 
     private int checkSum;
     private Leider leider;
     private DatabaseCommunicator dbc;
     private Label[] labels;
     private int counter;
-
-    public LoginControlla(){
-        checkSum = 0;
-        counter = 0;
-        labels = new Label[4];
-        System.out.println("initialized");
-    }
+    private ArrayList<Node> toBeRefreshedUponRetry;
+    private ArrayList<Node> toBeInvisibleUponWrongCode;
 
     public LoginControlla(Connection connection, Leider leider){
         this.dbc = new DatabaseCommunicator(connection);
         this.leider = leider;
+        System.out.println(leider.getHash());
         checkSum = 0;
         counter = 0;
         labels = new Label[4];
-        System.out.println("initialized");
+        toBeRefreshedUponRetry = new ArrayList<>();
+        toBeInvisibleUponWrongCode = new ArrayList<>();
     }
 
     public void initialize(){
@@ -58,35 +64,64 @@ public class LoginControlla {
                     } else if (index == 10){
                         button.setText("0");
                         button.setOnAction(e -> buttonPress(index));
+                    }  else if (index == 11){
+                        button.setText("X");
                     }
                 }
-                if (i * 3 + j  < 11) {
-                    anker.getChildren().add(button);
-                }
+                toBeInvisibleUponWrongCode.add(button);
+                anker.getChildren().add(button);
             }
         }
+        retryButton.setOnAction(e ->{
+            fouteCodePane.setVisible(false);
+            generateLabels();
+            toBeInvisibleUponWrongCode.forEach(node -> node.setVisible(true));
+        });
+        generateLabels();
+        Image leiderImage = new Image("/properties/images/" + leider.getFirst() + leider.getLast() + ".jpg");
+        leftImage.setImage(leiderImage);
+        rightImage.setImage(leiderImage);
+    }
+
+    public void generateLabels(){
         for (int i = 0; i < 4; i++){
             Label label = new Label();
             label.setFont(new Font(96));
             label.setContentDisplay(ContentDisplay.RIGHT);
             label.setLayoutX(210 + i * 120);
             label.setLayoutY(50);
+            label.setPrefWidth(100);
             label.setAlignment(Pos.CENTER);
-            label.setText(Integer.toString(i));
+            //label.setText(Integer.toString(i));
+            label.setStyle(" -fx-background-color: #DFB951;\n" +
+                    "    -fx-border-radius: 20;\n" +
+                    "    -fx-background-radius: 20;\n" +
+                    "    -fx-padding: 5;");
             labels[i] = label;
             anker.getChildren().add(label);
-         }
+            toBeInvisibleUponWrongCode.add(label);
+            toBeRefreshedUponRetry.add(label);
+        }
     }
+
     public void buttonPress(int i){
-        if(counter == 4){
-            checkSum = 0;
-            counter = 0;
-            for(Label label : labels){
-                label.setText("");
+        if(counter == 3){
+            if (checkSum == leider.getHash()){
+                login(leider);
+            } else{
+                fouteCodePane.setVisible(true);
+                toBeRefreshedUponRetry.forEach(node -> anker.getChildren().remove(node));
+                toBeInvisibleUponWrongCode.forEach(node -> node.setVisible(false));
+                //generateLabels();
+                counter = 0;
             }
         }
         labels[counter].setText("#");
         checkSum += i;
         counter++;
+    }
+
+    public void login(Leider leider){
+
     }
 }
