@@ -3,7 +3,7 @@ package Login;
 import JDBC.ConnectionProvider;
 import JDBC.DatabaseCommunicator;
 import JDBC.Leider;
-import Main.NewController;
+import Main.Controller;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -16,7 +16,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -143,8 +142,8 @@ public class LoginControlla {
     }
 
     public void back(){
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Main/new__sample.fxml"));
-        fxmlLoader.setController(new NewController(new ConnectionProvider()));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Main/sample.fxml"));
+        fxmlLoader.setController(new Controller(new ConnectionProvider()));
         Parent root = null;
         try {
             root = (Parent) fxmlLoader.load();
