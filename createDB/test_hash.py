@@ -23,7 +23,9 @@ def generate_random_valid_hash():
         return generate_random_valid_hash()
 
 
-file = open("createDB/leiding.csv", "r")
-for line in file:
-    print(line[:-1] + "\t" + str(generate_random_valid_hash())) 
+# file = open("createDB/leiding.csv", "r")
+# for line in file:
+#     print(line[:-1] + "\t" + str(generate_random_valid_hash())) 
 
+
+print(hash(5,5,1,8))

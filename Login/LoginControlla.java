@@ -31,7 +31,7 @@ public class LoginControlla {
     public Button retryButton;
     public Button annuleerButton;
 
-    private int checkSum;
+    private int[] checkSum;
     private Leider leider;
     private DatabaseCommunicator dbc;
     private Label[] labels;
@@ -43,7 +43,7 @@ public class LoginControlla {
         this.dbc = new DatabaseCommunicator(connection);
         this.leider = leider;
         System.out.println(leider.getHash());
-        checkSum = 0;
+        checkSum = new int[4];
         counter = 0;
         labels = new Label[4];
         toBeRefreshedUponRetry = new ArrayList<>();
@@ -60,23 +60,23 @@ public class LoginControlla {
                 button.setPrefWidth(75);
                 button.setPrefHeight(75);
                 button.setFont(new Font(34));
-                final int index = i * 3 + j;
-                if (index  < 9) {
+                final int index = i * 3 + j + 1;
+                if (index  < 10) {
                     button.setText(Integer.toString(index));
                     button.setOnAction(e -> buttonPress(index));
                 } else {
-                    if (index ==  9){
+                    if (index ==  10){
                         button.setText("C");
                         button.setOnAction(e -> {
                             toBeRefreshedUponRetry.forEach(node -> anker.getChildren().remove(node));
                             generateLabels();
                             counter = 0;
-                            checkSum = 0;
+                            checkSum = new int[4];
                         });
-                    } else if (index == 10){
+                    } else if (index == 11){
                         button.setText("0");
                         button.setOnAction(e -> buttonPress(index));
-                    }  else if (index == 11){
+                    }  else if (index == 12){
                         button.setText("X");
                         button.setOnAction(e -> back());
 
@@ -120,25 +120,30 @@ public class LoginControlla {
     }
 
     public void buttonPress(int i){
-        if(counter == 3){
-            if (checkSum == leider.getHash()){
+        labels[counter].setText("#");
+        checkSum[counter] = i;
+        counter++;
+        if(counter == 4){
+            if (calcHash(checkSum) == leider.getHash()){
                 login(leider);
             } else{
                 fouteCodePane.setVisible(true);
                 toBeRefreshedUponRetry.forEach(node -> anker.getChildren().remove(node));
                 toBeInvisibleUponWrongCode.forEach(node -> node.setVisible(false));
-                //generateLabels();
                 counter = 0;
-                checkSum = 0;
+                checkSum = new int[4];
             }
         }
-        labels[counter].setText("#");
-        checkSum += i;
-        counter++;
+
+    }
+
+    public int calcHash(int[] integers){
+        return (integers[0] * integers[1] * integers[2] + integers[3] + integers[1] * integers[2] * integers[3] + integers[0] +
+                integers[0] * integers[2] * integers[3] + integers[1] + integers[0] * integers[1] * integers[3] + integers[2]) % 232;
     }
 
     public void login(Leider leider){
-
+        System.out.println("login");
     }
 
     public void back(){
