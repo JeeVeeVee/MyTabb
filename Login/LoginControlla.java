@@ -4,6 +4,7 @@ import JDBC.ConnectionProvider;
 import JDBC.DatabaseCommunicator;
 import JDBC.Leider;
 import Main.Controller;
+import ZuipGedeelte.DrinkControlla;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -34,12 +35,14 @@ public class LoginControlla {
     private int[] checkSum;
     private Leider leider;
     private DatabaseCommunicator dbc;
+    private Connection connection;
     private Label[] labels;
     private int counter;
     private ArrayList<Node> toBeRefreshedUponRetry;
     private ArrayList<Node> toBeInvisibleUponWrongCode;
 
     public LoginControlla(Connection connection, Leider leider){
+        this.connection = connection;
         this.dbc = new DatabaseCommunicator(connection);
         this.leider = leider;
         System.out.println(leider.getHash());
@@ -144,6 +147,19 @@ public class LoginControlla {
 
     public void login(Leider leider){
         System.out.println("login");
+        //Load new FXML and assign it to scene
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/ZuipGedeelte/zuip_sample.fxml"));
+        DrinkControlla drinkControlla = new DrinkControlla(this.connection, leider);
+        fxmlLoader.setController(drinkControlla);
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(root, 900, 600);
+        Stage stage = (Stage) anker.getScene().getWindow();
+        stage.setScene(scene);
     }
 
     public void back(){

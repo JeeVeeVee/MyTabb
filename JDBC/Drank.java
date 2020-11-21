@@ -24,6 +24,22 @@ public class Drank {
     }
 
     @Override
+    public int hashCode() {
+        return naam.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        try{
+            Drank otherOne = (Drank) obj;
+            return this.getNaam() == otherOne.getNaam();
+        } catch (Exception e){
+            System.out.println(e.getStackTrace());
+            return false;
+        }
+    }
+
+    @Override
     public String toString() {
         return naam;
     }
