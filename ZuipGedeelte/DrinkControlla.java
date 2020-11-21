@@ -53,14 +53,7 @@ public class DrinkControlla {
                     gekozen.setVisible(true);
                     toBeInvisibleUponChoiche.forEach(node -> node.setVisible(false));
                     bestelling.addDrank(drank);
-                    int x = 0;
-                    for (Drank d : bestelling.getMap().keySet()) {
-                        System.out.println(d.getNaam() + " : " + bestelling.getMap().get(drank));
-                        Label label = new Label(d.getNaam() + " : " + bestelling.getMap().get(drank));
-                        label.setFont(new Font(25));
-                        label.setLayoutY(x * 30);
-                        gekozen.getChildren().add(label);
-                    }
+                    System.out.println(bestelling.toString());
                 });
                 anker.getChildren().add(drankPane);
                 toBeInvisibleUponChoiche.add(drankPane);

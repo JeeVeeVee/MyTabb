@@ -11,8 +11,8 @@
             <Font size="58.0" />
          </font>
       </Label>
-      <Label fx:id="loggedInAs" layoutX="24.0" layoutY="561.0" text="ingelogd als : " />
-      <AnchorPane fx:id="gekozen" layoutY="5.0" prefHeight="600.0" prefWidth="900.0" visible="false">
+      <Label fx:id="loggedInAs" layoutX="24.0" layoutY="561.0" text="ingelogd als : "/>
+      <AnchorPane fx:id="gekozen" layoutY="5.0" prefHeight="600.0" prefWidth="900.0">
          <children>
             <Label layoutX="165.0" layoutY="23.0" prefHeight="87.0" prefWidth="615.0" text="Voorlopige Bestelling : ">
                <font>
