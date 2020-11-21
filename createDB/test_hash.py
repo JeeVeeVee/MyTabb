@@ -1,7 +1,7 @@
 import random;
 
 def hash(a, b, c, d):
-    return a * b * c + d + a * b * d + c + a * c * d + b + a + b *  c * d
+    return (a * b * c + d + a * b * d + c + a * c * d + b + a + b *  c * d) % 232
 
 
 print(hash(9,9,9,9))
