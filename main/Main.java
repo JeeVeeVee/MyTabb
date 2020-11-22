@@ -1,4 +1,4 @@
-package Main;
+package main;
 
 import JDBC.ConnectionProvider;
 import javafx.application.Application;

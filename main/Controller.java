@@ -1,6 +1,5 @@
-package Main;
+package main;
 
-import JDBC.ConnectionProvider;
 import JDBC.DatabaseCommunicator;
 import JDBC.Leider;
 import Login.LoginControlla;

@@ -1,8 +1,7 @@
 package ZuipGedeelte;
 
 import JDBC.*;
-import Login.LoginControlla;
-import Main.Controller;
+import main.Controller;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -10,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -71,7 +69,7 @@ public class DrinkControlla {
                 toBeInvisibleUponChoiche.add(drankPane);
             }
         }
-        loggedInAs.setText("logged in as : " + leider.getFirst() + " " + leider.getLast());
+        loggedInAs.setText("logged in as : " + leider.getFirst() + " " + leider.getLast() + ", voorlopige schuld : " + leider.getSchuld());
         toBeInvisibleUponChoiche.add(titel);
         another.setOnAction(e -> {
             gekozen.setVisible(false);
@@ -98,8 +96,9 @@ public class DrinkControlla {
     }
 
     public void afsluiten(){
+        verwerkBestelling();
         //Load new FXML and assign it to scene
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Main/sample.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/sample.fxml"));
         try {
             connection.close();
         } catch (SQLException e) {
@@ -116,6 +115,15 @@ public class DrinkControlla {
         Scene scene = new Scene(root, 900, 600);
         Stage stage = (Stage) anker.getScene().getWindow();
         stage.setScene(scene);
+    }
+
+    public void verwerkBestelling(){
+        for(Drank drank : bestelling.getMap().keySet()){
+            for(int i = 0 ; i < bestelling.getMap().get(drank); i++) {
+                dbc.zuip(leider, drank);
+                System.out.println(leider.getFirst() + " zoop een " + drank.getNaam());
+            }
+        }
     }
 
 }
