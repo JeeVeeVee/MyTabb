@@ -8,8 +8,8 @@
 
 <AnchorPane fx:id="anker" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fx:id="leftImage" fitHeight="425.0" fitWidth="300.0" layoutX="14.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="rightImage" fitHeight="425.0" fitWidth="300.0" layoutX="586.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="leftImage" fitHeight="325.0" fitWidth="300.0" layoutX="14.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="rightImage" fitHeight="325.0" fitWidth="300.0" layoutX="586.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" />
       <AnchorPane fx:id="fouteCodePane" layoutX="-2.0" prefHeight="600.0" prefWidth="900.0" visible="false">
          <children>
             <Button fx:id="retryButton" layoutX="350.0" layoutY="258.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="202.0" text="nog keer proberen">

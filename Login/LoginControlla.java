@@ -164,7 +164,7 @@ public class LoginControlla {
 
     public void back(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Main/sample.fxml"));
-        fxmlLoader.setController(new Controller(new ConnectionProvider()));
+        fxmlLoader.setController(new Controller(connection));
         Parent root = null;
         try {
             root = (Parent) fxmlLoader.load();

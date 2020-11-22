@@ -1,14 +1,19 @@
 package ZuipGedeelte;
 
-import JDBC.Bestelling;
-import JDBC.DatabaseCommunicator;
-import JDBC.Drank;
-import JDBC.Leider;
+import JDBC.*;
+import Login.LoginControlla;
+import Main.Controller;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,15 +24,20 @@ public class DrinkControlla {
     public AnchorPane anker;
     public AnchorPane gekozen;
     public Label titel;
+    public Button schol;
+    public Button another;
 
 
     private DatabaseCommunicator dbc;
+    private Connection connection;
     private Leider leider;
     private Bestelling bestelling;
     private ArrayList<Node> toBeInvisibleUponChoiche;
     private List<Drank> allDrank;
+    private List<Node> toBeRemovedUponAnother;
 
     public DrinkControlla(Connection connection, Leider leider) {
+        this.connection = connection;
         this.dbc = new DatabaseCommunicator(connection);
         this.leider = leider;
         try {
@@ -37,6 +47,7 @@ public class DrinkControlla {
         }
         this.bestelling = new Bestelling(leider, allDrank);
         toBeInvisibleUponChoiche = new ArrayList<>();
+        toBeRemovedUponAnother = new ArrayList<>();
     }
 
     public void initialize() {
@@ -53,6 +64,7 @@ public class DrinkControlla {
                     gekozen.setVisible(true);
                     toBeInvisibleUponChoiche.forEach(node -> node.setVisible(false));
                     bestelling.addDrank(drank);
+                    generate_bestelling();
                     System.out.println(bestelling.toString());
                 });
                 anker.getChildren().add(drankPane);
@@ -61,5 +73,49 @@ public class DrinkControlla {
         }
         loggedInAs.setText("logged in as : " + leider.getFirst() + " " + leider.getLast());
         toBeInvisibleUponChoiche.add(titel);
+        another.setOnAction(e -> {
+            gekozen.setVisible(false);
+            for(Node node : toBeRemovedUponAnother){
+                gekozen.getChildren().remove(node);
+            }
+            for(Node node : toBeInvisibleUponChoiche){
+                node.setVisible(true);
+            }
+        });
+        schol.setOnAction(e -> afsluiten());
     }
+
+    public void generate_bestelling(){
+        int i = 0;
+        for(Drank drank : bestelling.getMap().keySet()){
+            Label newLabel = new Label(drank.getNaam() + " : " + bestelling.getMap().get(drank));
+            newLabel.setLayoutY(150 + 50 * i);
+            newLabel.setLayoutX(400);
+            i++;
+            gekozen.getChildren().add(newLabel);
+            toBeRemovedUponAnother.add(newLabel);
+        }
+    }
+
+    public void afsluiten(){
+        //Load new FXML and assign it to scene
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Main/sample.fxml"));
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        connection = new ConnectionProvider().getConnection();
+        fxmlLoader.setController(new Controller(connection));
+        Parent root = null;
+        try {
+            root = (Parent) fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(root, 900, 600);
+        Stage stage = (Stage) anker.getScene().getWindow();
+        stage.setScene(scene);
+    }
+
 }

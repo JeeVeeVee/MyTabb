@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,15 +20,16 @@ public class Controller {
 
     public AnchorPane anker;
 
-    private ConnectionProvider provider;
+    private Connection connection;
     private DatabaseCommunicator dbc;
 
-    public Controller(ConnectionProvider provider){
-        this.provider = provider;
-        this.dbc = new DatabaseCommunicator(provider.getConnection());
+    public Controller(Connection connection){
+        this.connection = connection;
+        this.dbc = new DatabaseCommunicator(connection);
     }
 
     public void initialize(){
+        System.out.println("i start initialize");
         List<Leider> allLeiding = new ArrayList<>();
         try {
              allLeiding = dbc.getAllLeiding();
@@ -50,7 +52,7 @@ public class Controller {
     public void loadSecondFxml(Leider leider){
         //Load new FXML and assign it to scene
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Login/login.fxml"));
-        LoginControlla loginControlla = new LoginControlla(provider.getConnection(), leider);
+        LoginControlla loginControlla = new LoginControlla(connection, leider);
         fxmlLoader.setController(loginControlla);
         Parent root = null;
         try {
