@@ -1,9 +1,8 @@
 package Login;
 
-import JDBC.ConnectionProvider;
 import JDBC.DatabaseCommunicator;
 import JDBC.Leider;
-import Main.Controller;
+import main.Controller;
 import ZuipGedeelte.DrinkControlla;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -163,8 +162,8 @@ public class LoginControlla {
     }
 
     public void back(){
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Main/sample.fxml"));
-        fxmlLoader.setController(new Controller(new ConnectionProvider()));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/sample.fxml"));
+        fxmlLoader.setController(new Controller(connection));
         Parent root = null;
         try {
             root = (Parent) fxmlLoader.load();

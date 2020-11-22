@@ -17,8 +17,10 @@ public class Bestelling {
     }
 
     public void addDrank(Drank drank){
-        Integer oldValue = map.get(drank);
-        map.put(drank, oldValue++);
+        Integer newValue = map.get(drank) + 1;
+        map.put(drank, newValue);
+        System.out.println("updated " + drank.getNaam());
+        //map.keySet().stream().forEach(e -> System.out.println(e.getNaam() + " : " + map.get(e).toString()));
     }
 
     public Leider getLeider() {
@@ -27,5 +29,15 @@ public class Bestelling {
 
     public HashMap<Drank, Integer> getMap() {
         return map;
+    }
+
+    @Override
+    public String toString() {
+        String output = "";
+        output += leider.getFirst() + "\n";
+        for (Drank drank : map.keySet()){
+            output += drank.getNaam() + " : " + map.get(drank) + "\n";
+        }
+        return output;
     }
 }
