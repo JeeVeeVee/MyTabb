@@ -1,5 +1,9 @@
 package JDBC;
 
+/*
+klasse die een Leider voorstelt, wordt uitgelezen uit de db
+ */
+
 public class Leider {
     private String first;
     private String last;
@@ -19,7 +23,6 @@ public class Leider {
         this.schuld = schuld;
         this.hash = hash;
     }
-
 
     public void consume(Drank drank){
         schuld += drank.getPrijs();

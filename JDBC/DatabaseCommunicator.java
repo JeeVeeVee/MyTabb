@@ -5,6 +5,9 @@ import errorHandling.MyError;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+/*
+staat in voor de communicatie met de database, alle functies spreken voor zichzelf
+ */
 
 public class DatabaseCommunicator {
 

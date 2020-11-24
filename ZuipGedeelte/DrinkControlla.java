@@ -20,6 +20,7 @@ import java.util.List;
 public class DrinkControlla {
     public Label loggedInAs;
     public AnchorPane anker;
+    //invisible in het begin, toont na keuze de voorlopige bestelling
     public AnchorPane gekozen;
     public Label titel;
     public Button schol;
@@ -49,8 +50,12 @@ public class DrinkControlla {
     }
 
     public void initialize() {
+        /*
+        dubbele for, you should recognize this by now
+         */
         for (int i = 0; i < allDrank.size(); i += 4) {
             for (int j = 0; j + i < allDrank.size() && j < 4; j++) {
+                //final voor lambda purposes
                 final Drank drank = allDrank.get(j + i);
                 DrankPane drankPane = new DrankPane(allDrank.get(j + i));
                 drankPane.setLayoutX(50 + j * 200);
@@ -62,6 +67,9 @@ public class DrinkControlla {
                     gekozen.setVisible(true);
                     toBeInvisibleUponChoiche.forEach(node -> node.setVisible(false));
                     bestelling.addDrank(drank);
+                    /*
+                    voegt de grafische voorstelling van de bestelling toe aan het gekozen pane
+                     */
                     generate_bestelling();
                     System.out.println(bestelling.toString());
                 });
@@ -95,7 +103,11 @@ public class DrinkControlla {
         }
     }
 
+    /*
+    gaat terug naar eerste scherm
+     */
     public void afsluiten(){
+
         verwerkBestelling();
         //Load new FXML and assign it to scene
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/sample.fxml"));
@@ -116,7 +128,9 @@ public class DrinkControlla {
         Stage stage = (Stage) anker.getScene().getWindow();
         stage.setScene(scene);
     }
-
+    /*
+    zorgt ervoor dat de schuld wordt geupdated
+     */
     public void verwerkBestelling(){
         for(Drank drank : bestelling.getMap().keySet()){
             for(int i = 0 ; i < bestelling.getMap().get(drank); i++) {

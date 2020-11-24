@@ -1,3 +1,5 @@
+#deze python file maakt de db aan, en vult hem op
+
 import sqlite3
 
 conn = sqlite3.connect("Tap.db")

@@ -9,9 +9,17 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    /*
+    standaard applicatie klasse
+     */
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
+        /*
+        omdat de controller van de fxml een connection nodig heeft, moet ik hem hier setten in de plaats van in de fxml.
+        Als je loader een private veld heeft, set je die beter hier want anders loopt de fxml vast.
+         */
         loader.setController(new Controller(new ConnectionProvider().getConnection()));
         Parent root = loader.load();
         primaryStage.setTitle("MyTabb");

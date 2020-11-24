@@ -5,6 +5,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
+/*
+analoog met personPane
+ */
+
 public class DrankPane extends Pane {
     private Drank drank;
     private ImageView drankImageView;

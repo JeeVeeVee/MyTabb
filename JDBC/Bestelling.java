@@ -3,6 +3,9 @@ package JDBC;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+/*
+deze klasse houd de bestelling bij, wordt gebruikt in de map zuip_gedeelte
+ */
 
 public class Bestelling {
     private Leider leider;

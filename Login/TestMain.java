@@ -8,6 +8,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class TestMain extends Application {
+    /*
+    alleen voor test doeleinden
+     */
 
     @Override
     public void start(Stage primaryStage) throws Exception{

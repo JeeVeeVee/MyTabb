@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/*
+provides connections, speaks for itself
+ */
+
 public class ConnectionProvider {
     private static final String JDBC_URL = "jdbc:sqlite:/home/jules/MyTab/src/Tap.db";
     private Connection connection;

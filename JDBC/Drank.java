@@ -1,5 +1,9 @@
 package JDBC;
 
+/*
+klasse die een drank voorstelt, die wordt uitgelezen uit de db
+ */
+
 public class Drank {
     private String naam;
     private double prijs;
